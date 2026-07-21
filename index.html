@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Oliwier Rogalski — Personal Portfolio & Systems Engineer</title>
-  <meta name="description" content="Personal developer portfolio of Oliwier Rogalski (rogal01) — Systems architecture, game development, AI engineering, and web applications.">
+  <meta name="description" content="Personal developer portfolio of Oliwier Rogalski (rogal01) — Systems architecture, game development, AI engineering, and embedded systems.">
   <meta name="theme-color" content="#0a0a0d">
 
   <!-- Classy Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -26,6 +26,14 @@
           Oliwier Rogalski <span class="badge-dev">@rogal01</span>
         </a>
 
+        <div class="nav-center-actions">
+          <button class="cmd-palette-trigger" id="btn-open-cmd">
+            <span class="cmd-icon">🔍</span>
+            <span>Search or jump to...</span>
+            <kbd class="kbd-shortcut">Ctrl K</kbd>
+          </button>
+        </div>
+
         <div class="nav-status">
           <span class="status-dot"></span>
           <span>Open for engineering projects</span>
@@ -35,6 +43,7 @@
           <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#engine-lab">Engine Lab</a></li>
             <li><a href="#skills">Tech Stack</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -54,8 +63,8 @@
             I'm <strong>Oliwier Rogalski</strong>, a software engineer based in Poland. I specialize in systems architecture, AI agent integrations, game development across Unity, Godot & Kotlin, and clean full-stack web applications.
           </p>
           <div class="hero-actions">
-            <a href="#projects" class="btn btn-primary">Explore Featured Projects &rarr;</a>
-            <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            <a href="#engine-lab" class="btn btn-primary">Try Interactive Engine Lab &rarr;</a>
+            <a href="#projects" class="btn btn-outline">Browse Projects</a>
           </div>
         </div>
 
@@ -74,7 +83,67 @@
             <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">cat focus.json</span></div>
             <div class="term-line"><span class="term-out">{ "primary": ["TypeScript", "C# / Unity 6", "Python", "C++ / ESP32"], "status": "Available" }</span></div>
             <div class="term-line"><span class="term-prompt">$</span> <span class="term-cmd">git status</span></div>
-            <div class="term-line"><span class="term-out">> On branch main // All systems operational</span></div>
+            <div class="term-line"><span class="term-out">> On branch main // Press Ctrl+K for command menu</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORIGINAL FEATURE: INTERACTIVE ENGINE PARITY SIMULATION LAB -->
+    <section id="engine-lab" class="section bg-surface">
+      <div class="container">
+        <div class="section-title-wrap">
+          <span class="section-badge">ORIGINAL INNOVATION // INTERACTIVE LAB</span>
+          <h2 class="section-title">Multi-Engine Parity Simulator</h2>
+          <p class="section-subtitle">Test and compare architectural implementations across Unity 6 (C#), Godot 4 (GDScript), and Android Native (Kotlin) in real-time.</p>
+        </div>
+
+        <div class="lab-card">
+          <div class="lab-controls-bar">
+            <div class="lab-system-selector">
+              <span class="lab-label">Target Component:</span>
+              <button class="lab-tab-btn active" data-system="spawner">Wave Spawner</button>
+              <button class="lab-tab-btn" data-system="upgrade">Tower Upgrade Math</button>
+              <button class="lab-tab-btn" data-system="save">Save Persistence</button>
+            </div>
+            <button class="btn btn-primary btn-sm" id="btn-run-simulation">
+              ▶ Run Live Canvas Simulation
+            </button>
+          </div>
+
+          <div class="lab-content-grid">
+
+            <!-- Interactive Canvas Game Simulation Window -->
+            <div class="lab-sim-window">
+              <div class="sim-header">
+                <span>CANVAS ENGINE SIMULATION [60 FPS]</span>
+                <span class="sim-badge" id="sim-status-badge">READY</span>
+              </div>
+              <div class="sim-canvas-wrapper">
+                <canvas id="sim-canvas" width="480" height="260"></canvas>
+                <div class="sim-metrics-overlay">
+                  <div class="metric"><span class="m-label">Entities:</span> <span id="m-entities">0</span></div>
+                  <div class="metric"><span class="m-label">Creeps Destroyed:</span> <span id="m-score">0</span></div>
+                  <div class="metric"><span class="m-label">Memory:</span> <span id="m-ram">14.2 MB</span></div>
+                </div>
+              </div>
+              <div class="sim-instructions">
+                💡 Click inside the simulation canvas to place extra Defense Towers!
+              </div>
+            </div>
+
+            <!-- Code Comparison Tabs -->
+            <div class="lab-code-viewer">
+              <div class="code-tabs-header">
+                <button class="code-tab active" data-lang="csharp">C# (Unity 6)</button>
+                <button class="code-tab" data-lang="gdscript">GDScript (Godot 4)</button>
+                <button class="code-tab" data-lang="kotlin">Kotlin (Android Native)</button>
+              </div>
+              <div class="code-body-wrapper">
+                <pre class="code-display" id="code-output"><code>// Select a component above to inspect code architecture...</code></pre>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -105,7 +174,7 @@
               A 20-level campaign featuring towers, wave spawner, boss logic, and economy rebuilt 3 times to compare engine performance and architectural models across Android (Kotlin Native), Godot 4 (GDScript), and Unity 6 (C#).
             </p>
 
-            <!-- Original Screenshot Gallery Restored -->
+            <!-- Original Screenshot Gallery -->
             <div class="project-gallery">
               <div class="gallery-card">
                 <img src="media/02-android-gameplay.png" alt="Android Kotlin Gameplay" class="gallery-image">
@@ -252,7 +321,7 @@
       </div>
     </section>
 
-    <!-- REWORKED WORKING CONTACT SECTION -->
+    <!-- WORKING CONTACT SECTION -->
     <section id="contact" class="section">
       <div class="container">
         <div class="contact-card-wrapper">
@@ -340,6 +409,47 @@
       </div>
     </footer>
 
+  </div>
+
+  <!-- RAYCAST / SPOTLIGHT COMMAND PALETTE MODAL (Ctrl + K) -->
+  <div id="cmd-palette-backdrop" class="cmd-backdrop">
+    <div class="cmd-modal">
+      <div class="cmd-input-wrapper">
+        <span class="cmd-input-icon">🔍</span>
+        <input type="text" id="cmd-search-input" class="cmd-input" placeholder="Type a command or search..." autocomplete="off">
+        <kbd class="cmd-esc">ESC</kbd>
+      </div>
+      <div class="cmd-results-list" id="cmd-results">
+        <div class="cmd-item" data-action="goto-engine-lab">
+          <span class="cmd-item-icon">🎮</span>
+          <div class="cmd-item-text">
+            <span class="title">Open Engine Parity Simulator</span>
+            <span class="sub">Run live canvas game simulation & compare C#/GDScript/Kotlin code</span>
+          </div>
+        </div>
+        <div class="cmd-item" data-action="goto-projects">
+          <span class="cmd-item-icon">📁</span>
+          <div class="cmd-item-text">
+            <span class="title">View Featured Repositories</span>
+            <span class="sub">Jump to Tower Defense, Złoty Bochen, Rogal Bot & M5Stick projects</span>
+          </div>
+        </div>
+        <div class="cmd-item" data-action="goto-contact">
+          <span class="cmd-item-icon">✉️</span>
+          <div class="cmd-item-text">
+            <span class="title">Contact Oliwier Rogalski</span>
+            <span class="sub">Send a direct message or open Telegram chat</span>
+          </div>
+        </div>
+        <div class="cmd-item" data-action="open-vault-key">
+          <span class="cmd-item-icon">🔐</span>
+          <div class="cmd-item-text">
+            <span class="title">Unlock Stealth Rogal Vault</span>
+            <span class="sub">Enter access key to view encrypted private projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ELEGANT VAULT UNLOCK MODAL -->
