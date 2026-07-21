@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rogal01 // Developer Portfolio & Systems Architect</title>
+  <meta name="description" content="Official developer portfolio of rogal01 - Systems architecture, high-performance media engines, and classified software development.">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- CRT Screen Scanline Overlay -->
+  <div class="crt-overlay"></div>
+
+  <!-- Main Public Portfolio Wrapper -->
+  <div id="main-portfolio-view">
+
+    <!-- HUD Navbar -->
+    <header class="hud-navbar">
+      <div class="container hud-nav-inner">
+        <a href="#" class="brand-logo">
+          ROGAL<span class="tag">01</span>
+        </a>
+
+        <div class="hud-status-bar">
+          <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span>SYSTEM ONLINE</span>
+          </div>
+          <div class="hud-clock" id="live-clock">15:52:07 UTC</div>
+        </div>
+
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#hero">// HOME</a></li>
+            <li><a href="#projects">// PROJECTS</a></li>
+            <li><a href="#skills">// SKILLS</a></li>
+            <li><a href="#terminal" id="trigger-console-hint">// CONSOLE</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-tagline">[ROGAL01 ARCHITECTURE PROTOCOL]</div>
+          <h1 class="hero-title">
+            CRAFTING <span class="highlight">UNBREAKABLE</span> DIGITAL SYSTEMS.
+          </h1>
+          <p class="hero-description">
+            Full-stack systems engineer & digital architect. Specializing in high-performance native media engines, cryptographic security, and raw brutalist web experiences.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn">VIEW PUBLIC WORK &rarr;</a>
+            <button id="btn-unlock-secret" class="btn btn-secondary">[?] ACCESS CLASSIFIED</button>
+          </div>
+        </div>
+
+        <!-- Terminal Widget -->
+        <div class="hero-terminal-card" id="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span>rogal01@core-node:~</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line">
+              <span class="prompt">rogal01@host:~$</span>
+              <span class="cmd">whoami</span>
+            </div>
+            <div class="terminal-line">
+              <span class="output">> Software Architect / Core Systems Developer</span>
+            </div>
+            <div class="terminal-line">
+              <span class="prompt">rogal01@host:~$</span>
+              <span class="cmd">cat status.json</span>
+            </div>
+            <div class="terminal-line">
+              <span class="output">{ "status": "ACTIVE", "focus": ["High-Performance Video", "E2E Messaging", "Security"] }</span>
+            </div>
+            <div class="terminal-line">
+              <span class="prompt">rogal01@host:~$</span>
+              <span class="cmd" id="typed-cmd">rogalplayer --help</span>
+            </div>
+            <div class="terminal-hint">
+              💡 TIP: Type <strong>rogalplayer</strong> on your keyboard anywhere or open DevTools console!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Public Projects Section -->
+    <section id="projects" class="section-wrapper">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="section-num">01//</span>
+            <h2 class="section-title">FEATURED WORK</h2>
+          </div>
+          <p class="section-desc">Selected open-source repositories and public software architectures.</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Card 1 -->
+          <article class="bento-card bento-col-8">
+            <div>
+              <span class="card-tag">Core Architecture</span>
+              <h3 class="card-title">Charming Goodall Engine</h3>
+              <p class="card-desc">
+                High-throughput distributed event streaming and real-time state protocol designed for low-latency client synchronization.
+              </p>
+              <div class="card-tech-stack">
+                <span class="tech-badge">Rust</span>
+                <span class="tech-badge">WebSockets</span>
+                <span class="tech-badge">TypeScript</span>
+                <span class="tech-badge">Zero-Copy Buffer</span>
+              </div>
+            </div>
+            <a href="https://github.com/rogal01" target="_blank" rel="noopener" class="card-link">INSPECT REPOSITORY &rarr;</a>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="bento-card bento-col-4">
+            <div>
+              <span class="card-tag">UI / UX Experiment</span>
+              <h3 class="card-title">Streetwear Brutalism UI</h3>
+              <p class="card-desc">
+                Non-conforming web design framework rejecting generic AI templates for raw streetwear aesthetics.
+              </p>
+              <div class="card-tech-stack">
+                <span class="tech-badge">Vanilla CSS</span>
+                <span class="tech-badge">Syne Font</span>
+                <span class="tech-badge">Custom Tokens</span>
+              </div>
+            </div>
+            <a href="#" class="card-link">VIEW DESIGN SPEC &rarr;</a>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="bento-card bento-col-6">
+            <div>
+              <span class="card-tag">Security & Crypto</span>
+              <h3 class="card-title">Base64 Memory Scrambler</h3>
+              <p class="card-desc">
+                In-memory client-side payload obfuscation utility utilizing Web Crypto SHA-256 for zero-knowledge frontend data protection.
+              </p>
+              <div class="card-tech-stack">
+                <span class="tech-badge">Web Crypto API</span>
+                <span class="tech-badge">SHA-256</span>
+                <span class="tech-badge">Byte Streams</span>
+              </div>
+            </div>
+            <a href="#" class="card-link">EXPLORE PROTOCOL &rarr;</a>
+          </article>
+
+          <!-- Card 4 -->
+          <article class="bento-card bento-col-6">
+            <div>
+              <span class="card-tag">Interactive Terminal</span>
+              <h3 class="card-title">Rogal CLI Shell</h3>
+              <p class="card-desc">
+                Embedded browser console layer capable of executing remote commands, audio synthesizer triggers, and stealth navigation.
+              </p>
+              <div class="card-tech-stack">
+                <span class="tech-badge">JS Engine</span>
+                <span class="tech-badge">ASCII Canvas</span>
+                <span class="tech-badge">Web Audio API</span>
+              </div>
+            </div>
+            <a href="https://github.com/rogal01" target="_blank" rel="noopener" class="card-link">GITHUB PROFILE &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Matrix -->
+    <section id="skills" class="section-wrapper">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <span class="section-num">02//</span>
+            <h2 class="section-title">SKILLS MATRIX</h2>
+          </div>
+          <p class="section-desc">Technical competencies across backend systems, security, and frontend craftsmanship.</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-box">
+            <div class="skill-box-header">
+              <span class="skill-category">SYSTEMS & BACKEND</span>
+              <span class="skill-icon">⚡</span>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item">
+                <span>Node.js / TypeScript</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 95%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Rust & Systems</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 88%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Python & Async</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 90%;"></div></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <div class="skill-box-header">
+              <span class="skill-category">FRONTEND & GRAPHICS</span>
+              <span class="skill-icon">🎨</span>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item">
+                <span>Vanilla HTML5 / CSS3</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 98%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Canvas & Glitch Shaders</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 85%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Brutalist UI Systems</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 94%;"></div></div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-box">
+            <div class="skill-box-header">
+              <span class="skill-category">SECURITY & ARCHITECTURE</span>
+              <span class="skill-icon">🛡️</span>
+            </div>
+            <ul class="skill-list">
+              <li class="skill-item">
+                <span>Cryptography & Hashing</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 92%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Obfuscation & Memory</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 90%;"></div></div>
+              </li>
+              <li class="skill-item">
+                <span>Media Protocols</span>
+                <div class="skill-progress-bar"><div class="skill-progress-fill" style="width: 86%;"></div></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          &copy; 2026 <strong>rogal01</strong>. All rights reserved. Open-Source Ecosystem.
+        </div>
+        <div class="footer-secret-hint" id="trigger-key-prompt">
+          [?] TYPE "rogalplayer" TO UNLOCK STEALTH VAULT
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- CYBER GLITCH OVERLAY MODAL -->
+  <div id="glitch-canvas-overlay">
+    <div class="glitch-modal-content">
+      <div class="glitch-title">ROGAL UNBREAKABLE PROTOCOL</div>
+      <div class="glitch-subtitle">STEALTH KEY VALIDATED // DECRYPTING VAULT PAYLOAD</div>
+      <div class="glitch-countdown" id="glitch-timer">03</div>
+      <p style="color: var(--text-muted); font-size: 0.85rem;">INITIALIZING ENCRYPTED MEMORY REDIRECT...</p>
+    </div>
+  </div>
+
+  <!-- SECRET ROGAL VAULT VIEW CONTAINER -->
+  <div id="secret-vault-view">
+    <div class="container">
+      
+      <div class="vault-nav-top">
+        <a href="https://github.com/rogal01" target="_blank" rel="noopener" class="btn btn-secondary">
+          &larr; GITHUB / ROGAL01
+        </a>
+        <button id="btn-exit-vault" class="btn btn-secondary">
+          EXIT VAULT &times;
+        </button>
+      </div>
+
+      <div class="vault-banner">
+        <div class="vault-header-text">
+          <h1>ROGAL STEALTH VAULT</h1>
+          <p>Unofficial Essential Projects & Real Activity Blueprint Ledger</p>
+        </div>
+        <div class="vault-badge">CLASSIFIED ACCESS LEVEL // GRANTED</div>
+      </div>
+
+      <!-- Decrypted Projects Container (Populated via vault.js) -->
+      <div class="vault-grid" id="vault-projects-container">
+        <!-- Injected dynamically upon successful SHA-256 decryption -->
+      </div>
+    </div>
+  </div>
+
+  <script src="vault.js"></script>
+</body>
+</html>
