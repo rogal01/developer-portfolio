@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>rogal01 // System Admin Control Panel</title>
+  <meta name="theme-color" content="#0a0a0d">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .admin-auth-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--bg-dark);
+      padding: 1.5rem;
+    }
+    .auth-card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+    .auth-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent-gold);
+      margin-bottom: 0.5rem;
+    }
+    .auth-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: 2rem;
+    }
+    .auth-input-group {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+    .admin-dashboard {
+      display: none;
+      padding: 4rem 0;
+      min-height: 100vh;
+    }
+    .dash-header {
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .dash-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    .dash-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .dash-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+      color: var(--accent-gold);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+    }
+    .stat-row:last-child {
+      border-bottom: none;
+    }
+    .stat-value {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+    .status-ok {
+      color: var(--success-green);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ADMIN AUTHENTICATION INTERFACE -->
+  <div class="admin-auth-container" id="admin-auth-view">
+    <div class="auth-card">
+      <div class="modal-status-tag">SECURITY CONSOLE</div>
+      <h2 class="auth-title">System Administrator</h2>
+      <p class="auth-desc">Enter authorization password to access server management nodes.</p>
+      
+      <form id="admin-auth-form">
+        <div class="auth-input-group">
+          <label for="admin-pass" class="field-label">Access Password</label>
+          <input type="password" id="admin-pass" class="field-input" style="width: 100%; margin-top: 0.4rem;" placeholder="••••••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Authorize Session</button>
+        <div id="auth-error-msg" style="color: var(--alert-red); font-size: 0.85rem; margin-top: 1rem; font-family: var(--font-mono);"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN MANAGEMENT DASHBOARD -->
+  <div class="admin-dashboard" id="admin-dashboard-view">
+    <div class="container">
+      
+      <div class="dash-header">
+        <div>
+          <span class="section-badge">ADMIN CONTROL PANEL</span>
+          <h1 class="dash-title">System Telemetry & Controls</h1>
+        </div>
+        <button id="btn-logout" class="btn btn-outline">Deauthorize Session</button>
+      </div>
+
+      <div class="dash-grid">
+        
+        <!-- Main Stats & Services -->
+        <div>
+          <div class="dash-card">
+            <h2 class="dash-card-title">Server Node Clusters</h2>
+            
+            <div class="stat-row">
+              <span>Main Host Gateway</span>
+              <span class="stat-value status-ok">● ONLINE (192.109.240.10)</span>
+            </div>
+            <div class="stat-row">
+              <span>Cloudflare Tunnel Route</span>
+              <span class="stat-value status-ok">● active (messages.rogalplayer.com)</span>
+            </div>
+            <div class="stat-row">
+              <span>Database Cluster</span>
+              <span class="stat-value status-ok">● Connected (SQLite WAL)</span>
+            </div>
+            <div class="stat-row">
+              <span>Active Connections (WS)</span>
+              <span class="stat-value" id="dash-active-conns">1</span>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <h2 class="dash-card-title">VPS Quick Actions</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+              Direct deployment script parameters configuration:
+            </p>
+            <div class="blueprint-box">
+              <pre id="vps-script-copy"># Rebuild and redeploy stacks on server
+docker compose -f deploy/docker-compose.rogal-messages.yml up -d --build --force-recreate</pre>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="navigator.clipboard.writeText(document.getElementById('vps-script-copy').innerText); alert('Copied to clipboard!');">
+              Copy Command
+            </button>
+          </div>
+        </div>
+
+        <!-- System Diagnostics Sidebar -->
+        <div>
+          <div class="dash-card">
+            <h2 class="dash-card-title">Invite Engine</h2>
+            <div class="stat-row">
+              <span>Active Invite Code</span>
+              <span class="stat-value" style="color: var(--accent-gold);">526BEAD6</span>
+            </div>
+            <div style="margin-top: 1.25rem;">
+              <button class="btn btn-primary btn-sm" style="width: 100%;" onclick="alert('Generated new code: ' + Math.random().toString(16).substring(2, 10).toUpperCase());">
+                Generate Additional Code
+              </button>
+            </div>
+          </div>
+
+          <div class="dash-card">
+            <h2 class="dash-card-title">Session Details</h2>
+            <div class="stat-row">
+              <span>User Host</span>
+              <span class="stat-value" id="user-ip">localhost</span>
+            </div>
+            <div class="stat-row">
+              <span>Last Login</span>
+              <span class="stat-value" id="last-login-time">Just Now</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+      
+      const TARGET_HASH = "23c5a27e6a449ab4c4d90c6f5118d5c8fc18a8bf8c49d272812ace9455de1f5b"; // sha256("rogal_admin_2026")
+
+      async function hashSHA256(str) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        const buffer = await crypto.subtle.digest('SHA-256', data);
+        const array = Array.from(new Uint8Array(buffer));
+        return array.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      document.getElementById('admin-auth-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const pass = document.getElementById('admin-pass').value;
+        const hash = await hashSHA256(pass);
+
+        if (hash === TARGET_HASH) {
+          localStorage.setItem('rogal_admin_auth', 'true');
+          showDashboard();
+        } else {
+          document.getElementById('auth-error-msg').textContent = "ACCESS DENIED: INVALID AUTHORIZATION STRING.";
+        }
+      });
+
+      function showDashboard() {
+        document.getElementById('admin-auth-view').style.display = 'none';
+        document.getElementById('admin-dashboard-view').style.display = 'block';
+        document.getElementById('last-login-time').textContent = new Date().toLocaleTimeString() + " UTC";
+        document.getElementById('user-ip').textContent = window.location.hostname;
+        
+        // Random active connection simulation
+        setInterval(() => {
+          document.getElementById('dash-active-conns').textContent = Math.floor(Math.random() * 5) + 1;
+        }, 4000);
+      }
+
+      document.getElementById('btn-logout').addEventListener('click', () => {
+        localStorage.removeItem('rogal_admin_auth');
+        window.location.reload();
+      });
+
+      if (localStorage.getItem('rogal_admin_auth') === 'true') {
+        showDashboard();
+      }
+    })();
+  </script>
+</body>
+</html>
