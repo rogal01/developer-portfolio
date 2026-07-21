@@ -23,12 +23,13 @@
       blueprint: [
         "// ROGAL MESSAGES - PROTOCOL SPECIFICATION",
         "REPO: github.com/rogal01/rogal-messages (Private)",
+        "LIVE_URL: https://messages.rogalplayer.com",
         "KEY_EXCHANGE: X25519 + Kyber768 Hybrid",
         "CIPHER: AES-256-GCM + ChaCha20-Poly1305",
-        "ROUTING: Multi-hop Onion Mesh",
+        "ROUTING: Cloudflare Tunnel / Bun WebSocket",
         "METADATA_STORAGE: 0 Bytes (RAM Only)"
       ].join("\n"),
-      link: "https://github.com/rogal01/rogal-messages"
+      link: "https://messages.rogalplayer.com"
     },
     {
       title: "Rogal Player",
