@@ -1,5 +1,5 @@
 /**
- * ROGAL01 SECURE VAULT ENGINE & EASTER EGG OBFUSCATION
+ * OLIWIER ROGALSKI (rogal01) PORTFOLIO LOGIC & STEALTH VAULT ENGINE
  * SHA-256 Hash Verification & In-Memory Payload Decryption
  */
 
@@ -7,53 +7,45 @@
   'use strict';
 
   // Target SHA-256 Hashes for stealth keys ('rogalplayer' and 'rogal_essential')
-  // No plain text secret exists in source code.
   const AUTHORIZED_HASHES = [
     "6fee815fb34e3242516b2f83e0349666336f0e3115594444320a5d5cfac75af4", // sha256("rogalplayer")
     "f5db24a3272a7c4b578d60c11df33f967d6338c16c68b0ab1112aca2d21b523d", // sha256("rogal_essential")
     "e6f0a1fbb43c89196dcfcbef85908f19ab4c5f7cc4f4c452284697757683d7ef"  // sha256("vault")
   ];
 
-  // XOR-Scrambled Encrypted Base64 Payload containing Essential Unofficial Projects metadata
-  // Decrypts ONLY in browser memory upon valid SHA-256 hash match.
-  const OBFUSCATED_PAYLOAD = [
-    // Project 1: Rogal Messages
-    "S09IUkVTVF9NQVNLXzAxOld3d3JSUFJQUlBTV1RUVVhYWlpa",
-    // Project 2: Rogal Player
-    "S09IUkVTVF9NQVNLXzAyOld3d3JSUFJQUlBTV1RUVVhYWlpa"
-  ];
-
-  // Raw Decrypted Project Definitions (Injected into DOM upon hash match)
+  // Essential Unofficial Projects (Rendered ONLY inside decrypted stealth vault)
   const VAULT_PROJECTS_DATA = [
     {
-      title: "ROGAL MESSAGES",
+      title: "Rogal Messages",
       tag: "ESSENTIAL UNOFFICIAL PRIVATE MESSAGING APP",
       status: "CLASSIFIED / ACTIVE",
-      badgeClass: "vault-badge",
       description: "An essential unofficial peer-to-peer end-to-end encrypted messaging engine. Built with zero-metadata retention, double-ratchet post-quantum cryptography, and silent stealth routing.",
-      tech: ["Rust", "WebRTC Mesh", "Double Ratchet", "Zero-Knowledge Specs"],
+      tech: ["Bun", "Elysia", "Postgres", "Redis", "React/Vite PWA"],
       blueprint: [
         "// ROGAL MESSAGES - PROTOCOL SPECIFICATION",
+        "REPO: github.com/rogal01/rogal-messages (Private)",
         "KEY_EXCHANGE: X25519 + Kyber768 Hybrid",
         "CIPHER: AES-256-GCM + ChaCha20-Poly1305",
         "ROUTING: Multi-hop Onion Mesh",
         "METADATA_STORAGE: 0 Bytes (RAM Only)"
-      ].join("\n")
+      ].join("\n"),
+      link: "https://github.com/rogal01/rogal-messages"
     },
     {
-      title: "ROGAL PLAYER",
+      title: "Rogal Player",
       tag: "ESSENTIAL UNOFFICIAL ALL-IN-ONE MEDIA CENTER",
       status: "ESSENTIAL / CORE",
-      badgeClass: "vault-badge",
       description: "The essential unofficial all-in-one media center and high-performance streaming engine. Features hardware-accelerated decoding, custom audio DSP pipeline, and unified multi-format playout.",
       tech: ["C++20", "FFmpeg Native", "WebAssembly", "Custom Audio DSP"],
       blueprint: [
         "// ROGAL PLAYER - ARCHITECTURE BLUEPRINT",
+        "REPO: github.com/rogal01/RogalPlayer (Private)",
         "DECODER: Hardware-Accelerated NVDEC / VAAPI",
         "DSP: 64-bit Floating Point Equalizer & Spatializer",
         "LATENCY: < 12ms Playout Buffer",
-        "SUPPORTED_FORMATS: AV1, HEVC, FLAC, Lossless Audio"
-      ].join("\n")
+        "FORMATS: AV1, HEVC, FLAC, Lossless Audio"
+      ].join("\n"),
+      link: "https://github.com/rogal01/RogalPlayer"
     }
   ];
 
@@ -70,53 +62,27 @@
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  // Web Audio Synthesizer for Cyber Glitch Sound FX
-  function playCyberBlip(freq = 440, type = 'sine', duration = 0.15) {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      const ctx = new AudioCtx();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-      gain.gain.setValueAtTime(0.1, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
-      
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + duration);
-    } catch (e) {
-      // Audio fallback silent failure
-    }
-  }
-
-  // Cyber Glitch Animation Sequence
+  // Smooth Vault Modal Transition
   async function triggerGlitchOverlay(secretKey) {
     const overlay = document.getElementById("glitch-canvas-overlay");
     const timerElem = document.getElementById("glitch-timer");
     if (!overlay) return;
 
     overlay.style.display = "flex";
-    playCyberBlip(880, 'sawtooth', 0.2);
-
     let seconds = 3;
-    timerElem.textContent = "0" + seconds;
+    if (timerElem) timerElem.textContent = seconds;
 
     const interval = setInterval(() => {
       seconds--;
-      playCyberBlip(440 + (3 - seconds) * 200, 'square', 0.1);
-      if (seconds >= 0) {
-        timerElem.textContent = "0" + seconds;
+      if (timerElem && seconds >= 0) {
+        timerElem.textContent = seconds;
       }
       if (seconds <= 0) {
         clearInterval(interval);
         overlay.style.display = "none";
         revealSecretVault();
       }
-    }, 600);
+    }, 500);
   }
 
   // Reveal Vault View and populate decrypted contents
@@ -134,28 +100,26 @@
       container.innerHTML = "";
       VAULT_PROJECTS_DATA.forEach(proj => {
         const card = document.createElement("div");
-        card.className = "vault-card";
+        card.className = "vault-project-card";
         card.innerHTML = `
           <div>
-            <div class="vault-card-header">
-              <span class="vault-project-type">${proj.tag}</span>
-              <span class="${proj.badgeClass}">${proj.status}</span>
-            </div>
+            <div class="vault-card-type">${proj.tag}</div>
             <h2 class="vault-card-title">${proj.title}</h2>
             <p class="vault-card-desc">${proj.description}</p>
             
-            <div class="blueprint-box">
-              <div class="blueprint-title">ARCHITECTURAL BLUEPRINT & SYSTEM SPEC</div>
+            <div class="vault-blueprint">
               <pre>${proj.blueprint}</pre>
             </div>
 
-            <div class="card-tech-stack">
-              ${proj.tech.map(t => `<span class="tech-badge">${t}</span>`).join('')}
+            <div class="project-header-tags">
+              ${proj.tech.map(t => `<span class="tag tag-gold">${t}</span>`).join('')}
             </div>
           </div>
-          <a href="https://github.com/rogal01" target="_blank" rel="noopener" class="btn" style="margin-top: 1rem;">
-            ACCESS REPOSITORY PROTOCOL &rarr;
-          </a>
+          <div style="margin-top: 1.5rem;">
+            <a href="${proj.link}" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
+              Access Classified Repository &rarr;
+            </a>
+          </div>
         `;
         container.appendChild(card);
       });
@@ -181,46 +145,28 @@
     return false;
   }
 
-  // Initialize Global Dev Console Function & Banner
+  // Dev Console Easter Egg
   function initConsoleEasterEgg() {
-    const banner = `
- %c  ____   ___   ____    _    _     ____  _       _   _ _____ ____  
- |  _ \\ / _ \\ / ___|  / \\  | |   |  _ \\| |     / \\ \\ \\/ / ___|  _ \\ 
- | |_) | | | | |  _  / _ \\ | |   | |_) | |    / _ \\ \\  /|  _| | |_) |
- |  _ <| |_| | |_| |/ ___ \\| |___|  __/| |___/ ___ \\ | | | |__|  _ < 
- |_| \\_\\\\___/ \\____/_/   \\_\\_____|_|   |_____/_/   \\_\\|_| |_____|_| \\_\\
-                                                                       
- %c[!] ROGAL01 SECURE SYSTEM TERMINAL ACTIVE.
- TYPE %cROGALPLAYER()%c IN THIS CONSOLE OR TYPE %crogalplayer%c ON KEYBOARD TO UNLOCK VAULT.
-    `;
-
     console.log(
-      banner, 
-      "color: #FFB800; font-weight: bold;", 
-      "color: #00F0FF; font-weight: bold;", 
-      "color: #FFB800; font-weight: bold; background: #111; padding: 2px 5px;",
-      "color: #00F0FF; font-weight: bold;",
-      "color: #FFB800; font-weight: bold; background: #111; padding: 2px 5px;",
-      "color: #00F0FF; font-weight: bold;"
+      "%c[!] Oliwier Rogalski Developer Shell Active.\nType ROGALPLAYER() in this console or 'rogalplayer' on keyboard to access stealth vault.",
+      "color: #FFB800; font-family: monospace; font-size: 13px; font-weight: bold;"
     );
 
-    // Expose global console trigger function
     window.ROGALPLAYER = function() {
-      console.log("%c[+] EXECUTING ROGALPLAYER UNLOCK PROTOCOL...", "color: #10B981; font-weight: bold;");
+      console.log("%c[+] Initiating Rogal Vault protocol...", "color: #10B981; font-weight: bold;");
       attemptUnlock("rogalplayer");
       return "ROGALPLAYER() PROTOCOL INITIATED.";
     };
   }
 
-  // Key Listener for typing sequence 'rogalplayer'
+  // Keyboard Listener
   function initKeyboardListener() {
     window.addEventListener("keydown", (e) => {
-      // Ignore inputs inside text areas or input elements if any
-      if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+      if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
 
       inputBuffer += e.key.toLowerCase();
-      if (inputBuffer.length > 30) {
-        inputBuffer = inputBuffer.substring(inputBuffer.length - 30);
+      if (inputBuffer.length > 25) {
+        inputBuffer = inputBuffer.substring(inputBuffer.length - 25);
       }
 
       if (inputBuffer.endsWith(SECRET_KEY_SEQUENCE)) {
@@ -230,7 +176,7 @@
     });
   }
 
-  // Check URL Parameters or Hash on Load
+  // URL Query / Hash Trigger
   function checkUrlTriggers() {
     const urlParams = new URLSearchParams(window.location.search);
     const keyParam = urlParams.get("key");
@@ -241,35 +187,52 @@
     }
   }
 
-  // Live Clock Updater
-  function initClock() {
-    const clockElem = document.getElementById("live-clock");
-    if (!clockElem) return;
-    setInterval(() => {
-      const now = new Date();
-      clockElem.textContent = now.toUTCString().split(" ")[4] + " UTC";
-    }, 1000);
-  }
+  // Contact Form Handling
+  function initContactForm() {
+    const form = document.getElementById("portfolio-contact-form");
+    const statusMsg = document.getElementById("form-status");
+    const submitBtn = document.getElementById("btn-submit-form");
 
-  // DOM Event Listeners
-  document.addEventListener("DOMContentLoaded", () => {
-    initClock();
-    initConsoleEasterEgg();
-    initKeyboardListener();
-    checkUrlTriggers();
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-    // Secondary UI buttons
-    const btnUnlock = document.getElementById("btn-unlock-secret");
-    if (btnUnlock) {
-      btnUnlock.addEventListener("click", () => {
-        const keyPrompt = prompt("ENTER CLASSIFIED ACCESS KEY:");
-        if (keyPrompt) {
-          attemptUnlock(keyPrompt).then(success => {
-            if (!success) alert("ACCESS DENIED: INVALID KEY HASH.");
-          });
+        const name = document.getElementById("c-name").value.trim();
+        const email = document.getElementById("c-email").value.trim();
+        const subject = document.getElementById("c-subject").value;
+        const message = document.getElementById("c-message").value.trim();
+
+        if (!name || !email || !message) {
+          if (statusMsg) {
+            statusMsg.style.color = "#ef4444";
+            statusMsg.textContent = "Please fill in all required fields.";
+          }
+          return;
+        }
+
+        // Open mailto link as fallback & display success indicator
+        const mailtoLink = `mailto:oliwierrr2009@gmail.com?subject=${encodeURIComponent("[" + subject + "] Inquiry from " + name)}&body=${encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message)}`;
+        
+        window.location.href = mailtoLink;
+
+        if (statusMsg) {
+          statusMsg.style.color = "#10B981";
+          statusMsg.textContent = "✓ Opening mail client & message logged!";
+        }
+
+        if (submitBtn) {
+          submitBtn.textContent = "✓ Message Prepared";
         }
       });
     }
+  }
+
+  // DOM Content Loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    initConsoleEasterEgg();
+    initKeyboardListener();
+    checkUrlTriggers();
+    initContactForm();
 
     const btnExit = document.getElementById("btn-exit-vault");
     if (btnExit) {
@@ -279,7 +242,12 @@
     const triggerKeyPrompt = document.getElementById("trigger-key-prompt");
     if (triggerKeyPrompt) {
       triggerKeyPrompt.addEventListener("click", () => {
-        attemptUnlock("rogalplayer");
+        const key = prompt("Enter Authorized Access Key:");
+        if (key) {
+          attemptUnlock(key).then(success => {
+            if (!success) alert("Access Denied: Invalid Key.");
+          });
+        }
       });
     }
   });
